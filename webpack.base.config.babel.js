@@ -30,7 +30,17 @@ export default {
       {
         test: /\.ts$/,
         loader: 'ts-loader',
-        exclude: /node_modules/
+        exclude: /node_modules|vue\/src/,
+        options: {
+          appendTsSuffixTo: [/\.vue$/]
+        }
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          esModule: true
+        }
       },
       {
         test: /\.pug$/,
