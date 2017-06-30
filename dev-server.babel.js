@@ -41,6 +41,10 @@ app.use(devMiddleware)
 // compilation error display
 app.use(hotMiddleware)
 
+// serve pure static assets
+const staticPath = path.posix.join('/', 'assets')
+app.use(staticPath, express.static('./static'))
+
 const port = process.env.PORT || 3000
 const uri = `http://localhost:${port}`
 
