@@ -8,4 +8,4 @@ import withRender from './template.html'
 
 @withRender
 @Component
-export default class App extends Vue {}
+export default class Top extends Vue {}
