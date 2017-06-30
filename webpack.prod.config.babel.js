@@ -7,15 +7,17 @@ import webpack from 'webpack'
 import merge from 'webpack-merge'
 import baseWebpackConfig from './webpack.base.config.babel'
 
-const env = process.env.NODE_ENV
-
 export default merge(baseWebpackConfig, {
   output: {
     filename: 'bundle.[chunkhash].js'
   },
 
   plugins: [
-    new webpack.DefinePlugin({ 'process.env': env }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: `"${process.env.NODE_ENV}"`
+      }
+    }),
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false }
     })
