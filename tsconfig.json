@@ -1,24 +1,24 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "target": "es5",
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "strictNullChecks": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "./types"
-    ],
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "importHelpers": true,
     "lib": [
       "dom",
       "es5",
       "es2015"
     ],
+    "module": "es2015",
+    "moduleResolution": "node",
     "noEmitHelpers": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "allowSyntheticDefaultImports": true,
-    "emitDecoratorMetadata": true
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "es5",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ]
   }
 }

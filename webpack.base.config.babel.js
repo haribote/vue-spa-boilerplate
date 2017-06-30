@@ -1,6 +1,6 @@
 /**
  * webpack.base.config.babel.js
- * @see https://github.com/vuejs-templates/webpack/blob/master/template/build/webpack.base.conf.js
+ * @see https://github.com/Toilal/vue-webpack-template/blob/master/template/build/webpack.base.conf.js
  */
 
 import {resolve} from 'path'
@@ -32,8 +32,24 @@ export default {
         exclude: /node_modules/
       },
       {
+        test: /template\.html$/,
+        use: [
+          {
+            loader: 'vue-template-loader',
+            options: {
+              hmr: true,
+              transformToRequire: {
+                img: 'src'
+              }
+            }
+          }
+        ],
+        exclude: resolve('src/index.pug')
+      },
+      {
         test: /\.pug$/,
-        loader: 'pug-loader'
+        loader: 'pug-loader',
+        exclude: /template\.pug$/
       }
     ]
   },
