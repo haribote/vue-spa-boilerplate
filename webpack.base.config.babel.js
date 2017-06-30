@@ -33,23 +33,13 @@ export default {
       },
       {
         test: /template\.html$/,
-        use: [
-          {
-            loader: 'vue-template-loader',
-            options: {
-              hmr: true,
-              transformToRequire: {
-                img: 'src'
-              }
-            }
+        loader: 'vue-template-loader',
+        options: {
+          hmr: true,
+          transformToRequire: {
+            img: 'src'
           }
-        ],
-        exclude: resolve('src/index.pug')
-      },
-      {
-        test: /\.pug$/,
-        loader: 'pug-loader',
-        exclude: /template\.pug$/
+        }
       }
     ]
   },
@@ -58,7 +48,7 @@ export default {
     new HtmlWebpackPlugin({
       title: 'Vue SPA',
       filename: 'index.html',
-      template: 'src/index.pug'
+      template: 'src/index.html'
     })
   ]
 }
