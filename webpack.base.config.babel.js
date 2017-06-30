@@ -1,10 +1,42 @@
 /**
  * webpack.base.config.babel.js
  * @see https://github.com/Toilal/vue-webpack-template/blob/master/template/build/webpack.base.conf.js
+ * @see https://webpack.js.org/loaders/sass-loader/
  */
 
 import {resolve} from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+
+const isProduction = process.env.NODE_ENV === 'production'
+
+const extractCss = new ExtractTextPlugin({
+  filename: 'assets/css/[name].[contenthash].css',
+  disable: !isProduction
+});
+
+const cssLoaders = [
+  {
+    loader: 'css-loader',
+    options: {
+      sourceMap: !isProduction
+    }
+  },
+  {
+    loader: 'postcss-loader',
+    options: {
+      sourceMap: !isProduction,
+      config: {
+        ctx: {
+          cssnano: {},
+          autoprefixer: {
+            browsers: ['last 2 versions']
+          }
+        }
+      }
+    }
+  }
+]
 
 export default {
   entry: ['./src/main.ts'],
@@ -42,6 +74,44 @@ export default {
         }
       },
       {
+        test: /\.css$/,
+        use: extractCss.extract({
+          use: cssLoaders.concat([]),
+          // use style-loader in development
+          fallback: 'style-loader'
+        })
+      },
+      {
+        test: /\.scss$/,
+        use: extractCss.extract({
+          use: cssLoaders.concat([
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: !isProduction
+              }
+            }
+          ]),
+          // use style-loader in development
+          fallback: 'style-loader'
+        })
+      },
+      {
+        test: /\.styl/,
+        use: extractCss.extract({
+          use: cssLoaders.concat([
+            {
+              loader: 'stylus-loader',
+              options: {
+                sourceMap: !isProduction
+              }
+            }
+          ]),
+          // use style-loader in development
+          fallback: 'style-loader'
+        })
+      },
+      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
@@ -61,6 +131,7 @@ export default {
   },
 
   plugins: [
+    extractCss,
     new HtmlWebpackPlugin({
       title: 'Vue SPA',
       filename: 'index.html',
